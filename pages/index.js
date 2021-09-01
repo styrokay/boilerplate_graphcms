@@ -1,8 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
 import { getPageData } from "../lib/data";
 import Link from "next/link";
-
 export default function Home({ data }) {
   return (
     <div>

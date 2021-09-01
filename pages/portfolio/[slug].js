@@ -23,7 +23,6 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export default function Home({ portfolioItem }) {
-  console.log(portfolioItem.title);
   return (
     <div>
       <Head>
