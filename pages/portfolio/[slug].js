@@ -1,16 +1,17 @@
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../../styles/Home.module.css";
-import { getPortfolioItems, getPortfolioItem } from "../../lib/data";
-import Link from "next/link";
-import { useRouter } from "next/router";
 
-export const getStaticPaths = () => {
+import { getAllPortfoliosSlug, getPortfolioItem } from "../../lib/data";
+
+export async function getStaticPaths() {
+  const { portfolios } = await getAllPortfoliosSlug();
+
   return {
-    paths: [],
-    fallback: true,
+    paths: portfolios.map(({ slug }) => ({
+      params: { slug },
+    })),
+    fallback: false,
   };
-};
+}
 
 export const getStaticProps = async ({ params }) => {
   const portfolioItem = await getPortfolioItem(params.slug);
@@ -22,10 +23,6 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export default function Home({ portfolioItem }) {
-  const router = useRouter();
-  if (router.isFallback) {
-    return <div>LOADING</div>;
-  }
   console.log(portfolioItem.title);
   return (
     <div>

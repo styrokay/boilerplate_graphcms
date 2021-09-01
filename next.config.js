@@ -2,6 +2,13 @@ module.exports = {
   reactStrictMode: true,
 };
 
+//ALLOW Media from CMS
+module.exports = {
+  images: {
+    domains: ["media.graphcms.com"],
+  },
+};
+//CMD Endpoint
 module.exports = {
   env: {
     ENDPOINT:

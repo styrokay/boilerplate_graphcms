@@ -1,16 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../../styles/Home.module.css";
-import { getPortfolioItems, getBlogItem } from "../../lib/data";
-import Link from "next/link";
-import { useRouter } from "next/router";
 
-export const getStaticPaths = () => {
-  return {
-    paths: [],
-    fallback: true,
-  };
-};
+import { getAllPostsSlug, getBlogItem } from "../../lib/data";
 
 export const getStaticProps = async ({ params }) => {
   const blogItem = await getBlogItem(params.slug);
@@ -21,12 +11,18 @@ export const getStaticProps = async ({ params }) => {
   };
 };
 
+export async function getStaticPaths() {
+  const { posts } = await getAllPostsSlug();
+
+  return {
+    paths: posts.map(({ slug }) => ({
+      params: { slug },
+    })),
+    fallback: false,
+  };
+}
+
 export default function Home({ blogItem }) {
-  const router = useRouter();
-  if (router.isFallback) {
-    return <div>LOADING</div>;
-  }
-  console.log(blogItem);
   return (
     <div>
       <Head>
