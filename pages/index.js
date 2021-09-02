@@ -13,7 +13,10 @@ export default function Home({ data }) {
       <h1>Portfolio Test Page</h1>
 
       <div>
-        <h1>Portfolio</h1>
+        <h1 className="text-xl font-bold text-black md:text-yellow-300">
+          Portfolio
+        </h1>
+
         {data.portfolios.map((e) => {
           return (
             <div key={e.slug}>
